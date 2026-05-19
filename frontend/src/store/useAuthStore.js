@@ -1,9 +1,18 @@
 import { create } from 'zustand'
 import api from '../lib/axios'
 
+const getStoredUser = () => {
+  try {
+    const user = localStorage.getItem('auth-user')
+    return user && user !== 'undefined' ? JSON.parse(user) : null
+  } catch {
+    return null
+  }
+}
+
 const useAuthStore = create((set) => ({
   token: localStorage.getItem('auth-token') || null,
-  user: JSON.parse(localStorage.getItem('auth-user') || 'null'),
+  user: getStoredUser(),
   isLoading: false,
   error: null,
 

@@ -1,0 +1,11 @@
+Options -Indexes
+RewriteEngine On
+
+# 1. PENGALIHAN API LARAVEL (Ganti 'laravel-core' dengan nama folder Laravel Anda di luar public_html)
+RewriteCond %{REQUEST_URI} ^/api [NC]
+RewriteRule ^api/(.*)$ ../laravel-core/public/index.php [L]
+
+# 2. SELEKSI ROUTING UNTUK REACT ROUTER (Agar halaman tidak 404 saat direfresh)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.html [L]

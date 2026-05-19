@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+import api from '../lib/axios'
 
 const STEPS = [
   { id: 'proses', label: 'Diterima', icon: '📥', desc: 'Masuk antrean produksi' },
@@ -28,7 +26,7 @@ export default function LandingPage() {
     setOrderData(null)
 
     try {
-      const response = await axios.get(`${API_URL}/v1/public/track/${encodeURIComponent(trimmedNota)}`)
+      const response = await api.get(`/v1/public/track/${encodeURIComponent(trimmedNota)}`)
       if (response.data?.success) {
         setOrderData(response.data.data)
       } else {

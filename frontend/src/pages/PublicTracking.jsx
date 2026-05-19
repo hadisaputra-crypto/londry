@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
-
-// We configure a separate public API call to avoid using the authenticated 'api' instance
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+import api from '../lib/axios'
 
 const STEPS = [
   { id: 'proses', label: 'Diterima', icon: '📥', desc: 'Pesanan masuk dalam antrean' },
@@ -27,7 +24,7 @@ export default function PublicTracking() {
     setOrderData(null)
 
     try {
-      const response = await axios.get(`${API_URL}/v1/public/track/${encodeURIComponent(trimmedNota)}`)
+      const response = await api.get(`/v1/public/track/${encodeURIComponent(trimmedNota)}`)
       if (response.data?.success) {
         setOrderData(response.data.data)
       } else {

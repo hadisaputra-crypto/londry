@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? '/api'
+    : 'https://londryku.kincai.web.id/api',
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
